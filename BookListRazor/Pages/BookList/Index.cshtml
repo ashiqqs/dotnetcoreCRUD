@@ -1,0 +1,77 @@
+﻿@page
+@model BookListRazor.Pages.BookList.IndexModel
+@{
+    ViewData["Title"] = "Index";
+}
+    <br />
+
+<div class="container row p-0 m-0">
+    <div class="col-md-9">
+        <h2 class="text-info">Book List</h2>
+    </div>
+    <div class="col-md-3">
+        <a asp-page="UpSert" class="btn btn-info text-white">Create New Book</a>
+    </div>
+
+    <div class="col-md-12 border p-3 mt-3">
+        <form method="post">
+            @if(@Model.Books.Count()>0){
+                <table class="table table-striped border">
+                    <tr class="table-secondary">
+                        <th>
+                            <label asp-for="@Model.Books.FirstOrDefault().Name"></label>
+                        </th>
+                        <th>
+                            <label asp-for="@Model.Books.FirstOrDefault().Name"></label>
+                        </th>
+                        <th>
+                        </th>
+                    </tr>
+                    @foreach(var book in @Model.Books)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(m=>book.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(mbox=>book.Author)
+                            </td>
+                            <td>
+                                <button asp-page-handler="Delete" asp-route-id="@book.Id" onclick="return confirm('Are you sure want ot delete?')" class="btn btn-danger btn-sm text-white">Delete</button>
+                                <a asp-page="Upsert" asp-route-id="@book.Id" class="btn btn-success btn-sm text-white">Edit</a>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            }
+            else{
+                <p>No books available!</p>
+            }
+        </form>
+    </div>
+</div> 
+
+<div class="col-12" style="text-align:center">
+    <br />
+    <span class="h3 text-info">OR</span>
+    <br /><br />
+</div>
+<div class="col-12 border p-3">
+    <table id="DT_load" class="table table-striped table-borderd" style="width:100%">
+        <thead>
+            <tr>
+                <th>#SN</th>
+                <th>Name</th>
+                <th>Author</th>
+                <th>ISBN</th>
+                <th></th>
+            </tr>
+        </thead>
+    </table>
+</div>
+@section Scripts{ 
+<script src="~/js/BookList.js"></script>
+}
+
+
+
